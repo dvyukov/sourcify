@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	re := regexp.MustCompile(`^([a-zA-Z0-9/_-\.]+):([0-9]+): `)
+	re := regexp.MustCompile(`^([a-zA-Z0-9/_\-\.]+):([0-9]+): `)
 	files := make(map[string][]string)
 	s := bufio.NewScanner(os.Stdin)
 	for s.Scan() {
@@ -45,6 +45,7 @@ func loadFile(files map[string][]string, file string) []string {
 	}
 	defer fd.Close()
 	var data []string
+	data = append(data, "") // lines are 1-based
 	s := bufio.NewScanner(fd)
 	for s.Scan() {
 		data = append(data, s.Text())
